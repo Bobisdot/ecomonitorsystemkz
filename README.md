@@ -2,7 +2,7 @@
 
 **EcoMonitorSystem** is a Spring Boot-based backend REST API designed to support an environmental monitoring system. It allows users to submit complaints, view news, and gives admin users the ability to manage the platform. This backend is designed to later connect with a frontend (React, Angular).
 
-## 📦 Features
+##  Features
 
 - User registration and login (via REST endpoints)
 - Submit/view environmental complaints
@@ -11,7 +11,7 @@
 - Role-based access control
 - MySQL database integration
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 - Java 21
 - Spring Boot
@@ -21,7 +21,7 @@
 - Maven
 - Postman (for API testing)
 
-## ⚙️ Configuration
+## ⚙ Configuration
 
 Application properties (`src/main/resources/application.properties`):
 
@@ -37,7 +37,7 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 
 management.endpoints.web.exposure.include=*
 ```
-🧩 Database Structure
+ Database Structure
 Database name: ecomonitor
 Main tables: users, complaints, news, comments
 Use your own SQL or JPA will auto-generate schema.
@@ -61,12 +61,12 @@ CREATE DATABASE ecomonitor;
 | `POST`   | `/comments/add`      | Add a new comment                 | JSON (Comment)     |
 | `DELETE` | `/comments/{id}`     | Delete comment by ID              | –                  |
 
-🔒 Roles (Planned)
+ Roles (Planned)
 Admin: Full control over news and complaints
 
 User: Submit/view complaints, read news, post comments
 
-🌐 Future Plans
+ Future Plans
 Add JWT-based authentication
 
 Implement role-based access
