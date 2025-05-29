@@ -68,7 +68,7 @@ User: Submit/view complaints, read news, post comments
 
 ecomonitorsystemkz/
 
-├── backend/        # Spring Boot backend source code
+├── src/        # Spring Boot backend source code
 
 ├── frontend/       # Simple frontend (HTML/CSS/JS)
 
