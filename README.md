@@ -66,6 +66,23 @@ Admin: Full control over news and complaints
 
 User: Submit/view complaints, read news, post comments
 
+ecomonitorsystemkz/
+├── backend/            # Spring Boot backend
+├── frontend/           # Simple frontend (HTML/CSS/JS)
+├── README.md
+Frontend (Simple UI)
+Basic user interface to:
+
+View news
+
+Submit complaints
+
+See list of comments
+
+Connected to backend via REST API
+
+Built using HTML, CSS,Javascript
+
  Future Plans
 Add JWT-based authentication
 
