@@ -67,9 +67,13 @@ Admin: Full control over news and complaints
 User: Submit/view complaints, read news, post comments
 
 ecomonitorsystemkz/
-├── backend/            # Spring Boot backend
-├── frontend/           # Simple frontend (HTML/CSS/JS)
-├── README.md
+├── backend/        # Spring Boot backend source code
+├── frontend/       # Simple frontend (HTML/CSS/JS)
+├── README.md       # Project documentation
+├── pom.xml         # Maven build file
+
+
+
 Frontend (Simple UI)
 Basic user interface to:
 
