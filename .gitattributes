@@ -1,7 +1,8 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
-*.java linguist-language=Java
-*.html linguist-language=ignore
-*.css linguist-language=ignore
-*.js linguist-language=ignore
 
+*.java linguist-language=Java
+
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
