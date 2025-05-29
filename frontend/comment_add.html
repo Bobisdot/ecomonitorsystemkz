@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comments</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; padding: 40px; }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; color: #457b9d; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #457b9d;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .comment {
+      margin-top: 20px;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+    .comment strong { color: #333; }
+    p { text-align: center; margin-top: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Comments</h2>
+    <div id="commentList">Loading comments...</div>
+
+    <h3 style="margin-top: 30px;">Add a Comment</h3>
+    <input type="text" id="author" placeholder="Your name">
+    <textarea id="text" placeholder="Your comment..."></textarea>
+    <button onclick="addComment()">Submit</button>
+    <p id="commentResult"></p>
+  </div>
+
+  <script>
+    function loadComments() {
+      fetch("http://localhost:8080/comments")
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("commentList");
+          container.innerHTML = "";
+          data.forEach(c => {
+            const div = document.createElement("div");
+            div.className = "comment";
+            div.innerHTML = `<strong>${c.author}</strong><p>${c.text}</p>`;
+            container.appendChild(div);
+          });
+        })
+        .catch(err => {
+          document.getElementById("commentList").textContent = "Failed to load comments.";
+          console.error(err);
+        });
+    }
+
+    function addComment() {
+      const comment = {
+        author: document.getElementById("author").value,
+        text: document.getElementById("text").value
+      };
+
+      fetch("http://localhost:8080/comments/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(comment)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById("commentResult").textContent = msg;
+        loadComments(); // refresh
+      })
+      .catch(err => {
+        document.getElementById("commentResult").textContent = "Error submitting comment.";
+        console.error(err);
+      });
+    }
+
+    loadComments();
+  </script>
+</body>
+</html>

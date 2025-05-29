@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>List of news</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .news-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .news-item {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .news-item h3 {
+      margin: 0 0 10px;
+      color: #222;
+    }
+
+    .news-item p {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>List of news</h2>
+  <div class="news-container" id="newsList">
+    
+  </div>
+
+  <script>
+    function loadNews() {
+      fetch("http://localhost:8080/news")
+        .then(res => res.json())
+        .then(newsArray => {
+          const container = document.getElementById("newsList");
+          container.innerHTML = "";
+
+          if (newsArray.length === 0) {
+            container.innerHTML = "<p>Not news.</p>";
+            return;
+          }
+
+          newsArray.forEach(news => {
+            const newsDiv = document.createElement("div");
+            newsDiv.className = "news-item";
+            newsDiv.innerHTML = `
+              <h3>${news.title}</h3>
+              <p>${news.content}</p>
+            `;
+            container.appendChild(newsDiv);
+          });
+        })
+        .catch(() => {
+          document.getElementById("newsList").innerHTML = "<p>No connect server.</p>";
+        });
+    }
+
+    window.onload = loadNews;
+  </script>
+
+</body>
+</html>

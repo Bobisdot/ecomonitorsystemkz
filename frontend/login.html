@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoMonitor - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+
+    .box button {
+      width: 100%;
+      padding: 10px;
+      background: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .box button:hover {
+      background: #005599;
+    }
+
+    .result {
+      text-align: center;
+      color: red;
+      margin-top: 10px;
+    }
+
+    .register {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .register a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    .register a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <div class="result" id="result"></div>
+    <div class="register">
+      Don't have an account? <a href="register.html">Register</a>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(res => res.text())
+      .then(text => {
+        if (text.includes("successful")) {
+          localStorage.setItem("authEmail", email);
+          localStorage.setItem("authPassword", password);
+          window.location.href = "index.html";
+        } else {
+          document.getElementById("result").textContent = text;
+        }
+      })
+      .catch(() => {
+        document.getElementById("result").textContent = "Server error.";
+      });
+    }
+  </script>
+
+</body>
+</html>

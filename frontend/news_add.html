@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>Add news</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #8c4b1a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #012409;
+    }
+
+    .message {
+      margin-top: 10px;
+      text-align: center;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <h2>Add news</h2>
+    <input type="text" id="title" placeholder="Title" required>
+    <textarea id="content" rows="5" placeholder="Text" required></textarea>
+    <button onclick="submitNews()">Add</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    function submitNews() {
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+
+      if (!title || !content) {
+        document.getElementById("message").textContent = "Барлық өрістерді толтырыңыз.";
+        return;
+      }
+
+      fetch("http://localhost:8080/news/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content })
+      })
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById("message").textContent = text;
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+      })
+      .catch(() => {
+        document.getElementById("message").textContent = "Сервер қатесі.";
+      });
+    }
+  </script>
+
+</body>
+</html>

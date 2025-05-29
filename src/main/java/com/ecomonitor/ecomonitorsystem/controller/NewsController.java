@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/news")
 public class NewsController {
+
     private final NewsService newsService;
 
     public NewsController(NewsService newsService) {
@@ -34,6 +36,7 @@ public class NewsController {
     public void deleteNews(@PathVariable Long id) {
         newsService.deleteNews(id);
     }
+
     @PostMapping("/add")
     public String addNews(@RequestBody News news) {
         newsService.saveNews(news);

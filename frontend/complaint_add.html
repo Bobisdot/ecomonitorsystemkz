@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Complaint</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; padding: 40px; }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; color: #e76f51; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #e76f51;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    p { text-align: center; margin-top: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Submit Complaint</h2>
+    <input type="text" id="title" placeholder="Complaint Title">
+    <textarea id="description" placeholder="Describe your complaint..."></textarea>
+    <button onclick="addComplaint()">Submit</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function addComplaint() {
+      const complaint = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value
+      };
+
+      fetch("http://localhost:8080/complaints/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(complaint)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById("result").textContent = msg;
+      })
+      .catch(err => {
+        document.getElementById("result").textContent = "Failed to send complaint.";
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

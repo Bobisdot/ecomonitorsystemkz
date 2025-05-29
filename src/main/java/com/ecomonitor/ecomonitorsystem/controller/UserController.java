@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -19,12 +21,10 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @PostMapping("/add")
     public String addUser(@RequestBody User user) {
         userService.saveUser(user);
         return "New user is added";
-
     }
-    
-
 }

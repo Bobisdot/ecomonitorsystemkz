@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add User</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; padding: 40px; }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; color: #2a9d8f; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    p { text-align: center; margin-top: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register New User</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="addUser()">Submit</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function addUser() {
+      const user = {
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+
+      fetch("http://localhost:8080/users/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById("result").textContent = msg;
+      })
+      .catch(err => {
+        document.getElementById("result").textContent = "Failed to add user.";
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

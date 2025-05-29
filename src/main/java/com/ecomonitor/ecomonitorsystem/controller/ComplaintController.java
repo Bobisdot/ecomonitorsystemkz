@@ -4,10 +4,12 @@ import com.ecomonitor.ecomonitorsystem.model.Complaint;
 import com.ecomonitor.ecomonitorsystem.service.ComplaintService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
+import java.util.List;
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/complaints")
+
 public class ComplaintController {
     private final ComplaintService complaintService;
 
